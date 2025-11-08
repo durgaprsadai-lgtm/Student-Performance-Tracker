@@ -1,0 +1,54 @@
+﻿@model List<StudentPerformanceWeb.Models.Student>
+@using System.Text
+@{
+    ViewData["Title"] = "Student List";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-primary text-center">📋 Student Performance Tracker</h2>
+
+    <a class="btn btn-success mb-3" asp-action="Create">➕ Add New Student</a>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-warning">No students found. Please add some.</div>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Math</th>
+                    <th>Science</th>
+                    <th>English</th>
+                    <th>Average</th>
+                    <th>Grade</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>@Model[i].ID</td>
+                        <td>@Model[i].Name</td>
+                        <td>@Model[i].MathMarks</td>
+                        <td>@Model[i].ScienceMarks</td>
+                        <td>@Model[i].EnglishMarks</td>
+                        <td>@Model[i].CalculateAverage()</td>
+                        <td>@Model[i].GetGrade()</td>
+                        <td>@Model[i].GetRemarks()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="alert alert-info">
+            <strong>Total Students:</strong> @StudentPerformanceWeb.Models.Student.TotalStudents
+        </div>
+    }
+</div>
